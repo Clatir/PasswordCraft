@@ -22,12 +22,13 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        stage.setResizable(false);
 
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/passwordcraft/hello-view.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 800);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
         /*
         scene.setFill(new RadialGradient(
                 0, 0, 0, 0, 1, true,                  //sizing
@@ -41,7 +42,7 @@ public class HelloApplication extends Application {
         scene.setFill(Color.web("#DCE5EF"));
 
 
-        stage.setTitle("Hello!");
+        stage.setTitle("PasswordCraft");
 
 
         stage.setScene(scene);

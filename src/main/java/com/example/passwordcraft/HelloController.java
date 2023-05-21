@@ -4,11 +4,18 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -53,15 +60,16 @@ public class HelloController {
     @FXML
     private Button confirmPasswordLength;
 
+    @FXML
+    private Button generatePasswordButton;
+
 
 
     @FXML
     private void handleLetterBoxAction() {
         lengthSliderLetterBox.setVisible(letterBox.isSelected());
         lengthLetterLabel.setVisible(letterBox.isSelected());
-        //mixedLetterBox.setDisable(false);
         mixedLetterBox.setDisable(!(letterBox.isSelected()));
-        //mixedLetterBox.setSelected((letterBox.isSelected()));
         if(!letterBox.isSelected()){
             mixedLetterBox.setSelected(false);
         }
@@ -196,7 +204,7 @@ public class HelloController {
 
 
 
-        // If sum of sliders values is less than lengthSliderValueInt, add letters, numbers and special characters to password
+
 if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt + specSliderBoxValueInt))
         {
             int difference = lengthSliderValueInt - (lengthSliderLetterBoxValueInt + numSliderBoxValueInt + specSliderBoxValueInt);
@@ -235,13 +243,39 @@ if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt 
         return shuffledPassword.toString();
     }
 
-    @FXML
-    public void handleGenerateButton()
-    {
-        if(!Objects.equals(generatePassword(), ""))
-            System.out.println(generatePassword());
 
+
+
+    @FXML
+    public void handleGenerateButton() throws IOException {
+        String password = generatePassword();
+        if (!password.isEmpty()) {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/passwordcraft/PasswordDialog.fxml"));
+            Parent dialogPane = fxmlLoader.load();
+
+            PasswordDialogController dialogController = fxmlLoader.getController();
+            dialogController.setPassword(password);
+
+            Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.setWidth(400);
+            dialogStage.setHeight(200);
+
+            dialogStage.setTitle("PasswordCraft - Generated Password");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+
+            Stage primaryStage = (Stage) generatePasswordButton.getScene().getWindow();
+            dialogStage.initOwner(primaryStage);
+
+            Scene scene = new Scene(dialogPane);
+            dialogPane.setStyle("-fx-background-color: #DCE5EF;");
+            dialogStage.setScene(scene);
+
+            dialogStage.showAndWait();
+        }
     }
+
     @FXML
     private void handleRestartButton() {
 
@@ -319,23 +353,7 @@ if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt 
         lengthSlider.valueProperty().addListener(lengthSliderListener);
         mixedLetterBox.setVisible(!(letterBox.isSelected()));
 
-/*
-        lengthSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                lengthLabel.setText("Aktualna dlugosc hasla: " + newValue.intValue()+"\n");
 
-
-
-                if(newValue.intValue() >0)
-                {
-                    confirmPasswordLength.setDisable(false);
-                }
-
-            }
-        });
-
- */
 
 
         lengthSliderLetterBox.valueProperty().addListener(new ChangeListener<Number>() {
@@ -403,8 +421,5 @@ if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt 
 
 
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+
 }
