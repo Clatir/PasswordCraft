@@ -7,19 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class HelloController {
     @FXML
@@ -207,29 +201,57 @@ public class HelloController {
 
 if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt + specSliderBoxValueInt))
         {
-            int difference = lengthSliderValueInt - (lengthSliderLetterBoxValueInt + numSliderBoxValueInt + specSliderBoxValueInt);
-            for(int i = 0; i < difference; i++)
-            {
-                int random = (int) (Math.random() * 3);
-                if(random == 0)
+            if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt + specSliderBoxValueInt)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("PasswordCraft - insufficient length");
+                alert.setHeaderText(null);
+                alert.setContentText("The sum of the slider values is less than the expected length of the password - characters will be added to the password to meet the requirements.");
+
+                ButtonType buttonTypeYes = new ButtonType("OK");
+                ButtonType buttonTypeNo = new ButtonType("Back");
+
+                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if(result.get() == buttonTypeYes)
                 {
-                    password.append(HelloApplication.letters.charAt((int) (Math.random() * HelloApplication.letters.length())));
-                }
-                else if(random == 1)
-                {
-                    password.append(HelloApplication.numbers.charAt((int) (Math.random() * HelloApplication.numbers.length())));
-                }
-                else if(random == 2)
-                {
-                    password.append(HelloApplication.specialChars.charAt((int) (Math.random() * HelloApplication.specialChars.length())));
+                    int difference = lengthSliderValueInt - (lengthSliderLetterBoxValueInt + numSliderBoxValueInt + specSliderBoxValueInt);
+                    for(int i = 0; i < difference; i++)
+                    {
+                        int random = (int) (Math.random() * 3);
+                        if(random == 0)
+                        {
+                            password.append(HelloApplication.letters.charAt((int) (Math.random() * HelloApplication.letters.length())));
+                        }
+                        else if(random == 1)
+                        {
+                            password.append(HelloApplication.numbers.charAt((int) (Math.random() * HelloApplication.numbers.length())));
+                        }
+                        else if(random == 2)
+                        {
+                            password.append(HelloApplication.specialChars.charAt((int) (Math.random() * HelloApplication.specialChars.length())));
+                        }
+                    }
+
                 }
             }
+
+
+
         }
 
 
 
 
-        List<String> chars = Arrays.asList(password.toString().split(""));
+
+
+
+
+
+
+
+    List<String> chars = Arrays.asList(password.toString().split(""));
         Collections.shuffle(chars);
         StringBuilder shuffledPassword = new StringBuilder();
         for (String c : chars) {
@@ -251,6 +273,7 @@ if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt 
         String password = generatePassword();
         if (!password.isEmpty()) {
 
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/passwordcraft/PasswordDialog.fxml"));
             Parent dialogPane = fxmlLoader.load();
 
@@ -269,7 +292,8 @@ if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt 
             dialogStage.initOwner(primaryStage);
 
             Scene scene = new Scene(dialogPane);
-            dialogPane.setStyle("-fx-background-color: #DCE5EF;");
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            dialogPane.setStyle("-fx-background-color: #E6E6FA;");
             dialogStage.setScene(scene);
 
             dialogStage.showAndWait();

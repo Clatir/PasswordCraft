@@ -1,0 +1,49 @@
+
+
+.slider {
+    -fx-background-color: transparent;
+}
+
+.slider .track {
+    -fx-fill: #ffffff;
+    -fx-stroke: none;
+    -fx-background-radius: 2;
+    -fx-background-insets: 0;
+    -fx-padding: 0.4em; /* 4 */
+}
+
+.slider .thumb {
+    -fx-background-color: #000080;
+    -fx-background-insets: 0;
+    -fx-background-radius: 3em;
+
+
+    -fx-shape: "M 0 10 L 10 20 L 20 10 L 10 0 Z";
+}
+.label {
+    -fx-text-fill: black;
+}
+
+.label .text {
+    -fx-fill: black;
+}
+
+.check-box > .box {
+    -fx-padding: 5px;
+    -fx-background-color: #EBF5FF; /* Kolor tła przycisku */
+    -fx-text-fill: #000; /* Kolor tekstu na przycisku */
+}
+
+
+.check-box:selected > .box{
+    -fx-background-color: #999FA9;
+    -fx-padding: 4px;
+
+
+}
+.button {
+    -fx-background-color: #EBF5FF; /* Kolor tła przycisku */
+    -fx-text-fill: #000; /* Kolor tekstu na przycisku */
+}
+
+
