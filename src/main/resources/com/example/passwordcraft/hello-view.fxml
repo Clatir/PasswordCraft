@@ -44,8 +44,8 @@
 
     <CheckBox fx:id="specialBox" onAction="#handleSpecialBoxAction" text="Użyj znaków specjalnych" GridPane.columnIndex="5" GridPane.rowIndex="0" />
     <Slider fx:id="specSliderBox" blockIncrement="2.0" majorTickUnit="2.0" max="28.0" minorTickCount="1" showTickLabels="true" />
+    <Button mnemonicParsing="false" onAction="#handleGenerateButton" text="Generuj hasło" />
 
 
     <Label fx:id="welcomeText" />
-    <Button mnemonicParsing="false" onAction="#handleGenerateButton" text="Generuj hasło" />
 </VBox>

@@ -12,9 +12,12 @@ public class HelloApplication extends Application {
 
 
 
-    private final String letters = "abcdefghijklmnopqrstuvwxyz";
-    private final String numbers = "0123456789";
-    private final String specialChars = "!@#$%^&*()_-+=[]{};:,.<>?";
+    public static final String letters = "abcdefghijklmnopqrstuvwxyz";
+
+    public static final String Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    public static final String numbers = "0123456789";
+    public static final String specialChars = "!@#$%^&*()_-+=[]{};:,.<>?";
 
 
     @Override
@@ -35,7 +38,7 @@ public class HelloApplication extends Application {
         );
 
          */
-        scene.setFill(Color.web("#D1EAEF"));
+        scene.setFill(Color.web("#DCE5EF"));
 
 
         stage.setTitle("Hello!");

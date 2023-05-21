@@ -9,6 +9,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
 public class HelloController {
     @FXML
     private Label welcomeText;
@@ -54,7 +59,20 @@ public class HelloController {
     private void handleLetterBoxAction() {
         lengthSliderLetterBox.setVisible(letterBox.isSelected());
         lengthLetterLabel.setVisible(letterBox.isSelected());
-        mixedLetterBox.setDisable(false);
+        //mixedLetterBox.setDisable(false);
+        mixedLetterBox.setDisable(!(letterBox.isSelected()));
+        //mixedLetterBox.setSelected((letterBox.isSelected()));
+        if(!letterBox.isSelected()){
+            mixedLetterBox.setSelected(false);
+        }
+
+        if(!letterBox.isSelected())
+        {
+
+            lengthSliderLetterBox.setValue(0);
+        }
+
+
     }
 
 
@@ -62,6 +80,13 @@ public class HelloController {
     private void handleNumBoxAction() {
         numSliderBox.setVisible(numBox.isSelected());
         lengthNumberLabel.setVisible(numBox.isSelected());
+
+
+        if(!numBox.isSelected())
+        {
+
+            numSliderBox.setValue(0);
+        }
     }
 
 
@@ -69,6 +94,13 @@ public class HelloController {
     private void handleSpecialBoxAction() {
         specSliderBox.setVisible(specialBox.isSelected());
         lengthSpecialLabel.setVisible(specialBox.isSelected());
+
+
+        if(!specialBox.isSelected())
+        {
+
+            specSliderBox.setValue(0);
+        }
     }
 
     @FXML
@@ -81,15 +113,134 @@ public class HelloController {
         letterBox.setDisable(false);
         numBox.setDisable(false);
         specialBox.setDisable(false);
-        mixedLetterBox.setDisable(false);
+
+        mixedLetterBox.setDisable(!(letterBox.isSelected()));
 
 
+    }
+
+
+
+
+    public String generatePassword()
+    {
+        int lengthSliderValueInt = (int) lengthSlider.getValue();
+        int lengthSliderLetterBoxValueInt = (int) lengthSliderLetterBox.getValue();
+        int numSliderBoxValueInt = (int) numSliderBox.getValue();
+        int specSliderBoxValueInt = (int) specSliderBox.getValue();
+
+        boolean letterBoxState = letterBox.isSelected();
+        boolean numBoxState = numBox.isSelected();
+        boolean specialBoxState = specialBox.isSelected();
+        boolean mixedLetterBoxState = mixedLetterBox.isSelected();
+
+        StringBuilder password = new StringBuilder();
+
+
+        if(letterBoxState)
+        {
+
+
+
+                for(int i = 0; i < lengthSliderLetterBoxValueInt; i++)
+                {
+                    if(mixedLetterBoxState)
+                    {
+                        if(password.length()<(lengthSliderLetterBoxValueInt)-1)
+                        {
+                            password.append(HelloApplication.letters.charAt((int) (Math.random() * HelloApplication.letters.length())));
+                            password.append(HelloApplication.Letters.charAt((int) (Math.random() * HelloApplication.Letters.length())));
+                        }
+
+                        if(password.length()<(lengthSliderLetterBoxValueInt))
+                        {
+
+                            password.append(HelloApplication.Letters.charAt((int) (Math.random() * HelloApplication.Letters.length())));
+                        }
+
+
+                    }
+                    else
+                    {
+                        if(password.length()<lengthSliderLetterBoxValueInt)
+                            password.append(HelloApplication.letters.charAt((int) (Math.random() * HelloApplication.letters.length())));
+
+                    }
+
+
+
+
+                }
+
+
+        }
+
+
+        if(numBoxState)
+        {
+            for(int i = 0; i < numSliderBoxValueInt; i++)
+            {
+                password.append(HelloApplication.numbers.charAt((int) (Math.random() * HelloApplication.numbers.length())));
+            }
+        }
+
+
+        if(specialBoxState)
+        {
+            for(int i = 0; i < specSliderBoxValueInt; i++)
+            {
+                password.append(HelloApplication.specialChars.charAt((int) (Math.random() * HelloApplication.specialChars.length())));
+            }
+        }
+
+
+
+
+        // If sum of sliders values is less than lengthSliderValueInt, add letters, numbers and special characters to password
+if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt + specSliderBoxValueInt))
+        {
+            int difference = lengthSliderValueInt - (lengthSliderLetterBoxValueInt + numSliderBoxValueInt + specSliderBoxValueInt);
+            for(int i = 0; i < difference; i++)
+            {
+                int random = (int) (Math.random() * 3);
+                if(random == 0)
+                {
+                    password.append(HelloApplication.letters.charAt((int) (Math.random() * HelloApplication.letters.length())));
+                }
+                else if(random == 1)
+                {
+                    password.append(HelloApplication.numbers.charAt((int) (Math.random() * HelloApplication.numbers.length())));
+                }
+                else if(random == 2)
+                {
+                    password.append(HelloApplication.specialChars.charAt((int) (Math.random() * HelloApplication.specialChars.length())));
+                }
+            }
+        }
+
+
+
+
+        List<String> chars = Arrays.asList(password.toString().split(""));
+        Collections.shuffle(chars);
+        StringBuilder shuffledPassword = new StringBuilder();
+        for (String c : chars) {
+            shuffledPassword.append(c);
+        }
+
+
+
+
+
+        return shuffledPassword.toString();
     }
 
     @FXML
     public void handleGenerateButton()
     {
-        System.out.println("AAA");
+        if(!Objects.equals(generatePassword(), ""))
+            System.out.println(generatePassword());
+
     }
     @FXML
     private void handleRestartButton() {
@@ -166,7 +317,7 @@ public class HelloController {
         specSliderBox.setVisible(false);
         confirmPasswordLength.setDisable(true);
         lengthSlider.valueProperty().addListener(lengthSliderListener);
-        mixedLetterBox.setDisable(!(letterBox.isSelected()));
+        mixedLetterBox.setVisible(!(letterBox.isSelected()));
 
 /*
         lengthSlider.valueProperty().addListener(new ChangeListener<Number>() {
