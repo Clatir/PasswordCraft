@@ -387,7 +387,7 @@ if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt 
         lengthSliderLetterBox.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if(newValue.intValue() + numSliderBox.getValue() + specSliderBox.getValue() > lengthSlider.getValue()) {
+                if(newValue.intValue() + numSliderBox.getValue() + specSliderBox.getValue() >= lengthSlider.getValue()) {
                     lengthSliderLetterBox.setValue(oldValue.intValue());
                 }
                 else
@@ -404,7 +404,7 @@ if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt 
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
             {
-                if(lengthSliderLetterBox.getValue() + newValue.intValue() + specSliderBox.getValue() > lengthSlider.getValue()) {
+                if(lengthSliderLetterBox.getValue() + newValue.intValue() + specSliderBox.getValue() >= lengthSlider.getValue()) {
                     numSliderBox.setValue(oldValue.intValue());
                 }
                 else
@@ -420,7 +420,7 @@ if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt 
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
             {
-                if(lengthSliderLetterBox.getValue() + numSliderBox.getValue() + newValue.intValue() > lengthSlider.getValue()) {
+                if(lengthSliderLetterBox.getValue() + numSliderBox.getValue() + newValue.intValue() >= lengthSlider.getValue()) {
                     specSliderBox.setValue(oldValue.intValue());
                 }
                 else
