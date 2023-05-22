@@ -236,6 +236,10 @@ if(lengthSliderValueInt > (lengthSliderLetterBoxValueInt + numSliderBoxValueInt 
 
                 }
             }
+            else
+            {
+                ;
+            }
 
 
 
