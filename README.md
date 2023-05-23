@@ -1,6 +1,6 @@
 # PasswordCraft
 
-PasswordCraft is an innovative and easy-to-use password generation application. Created with security and privacy in mind, this application helps create strong, unique passwords that are hard to guess or crack.
+PasswordCraft is easy-to-use password generation application. Created with security and privacy in mind, this application helps create strong, unique passwords that are hard to guess or crack.
 
 ## Features
 - **Strong Password Generation:** PasswordCraft can generate strong passwords, utilizing lowercase and uppercase letters, numbers, and special symbols.
