@@ -10,3 +10,7 @@ PasswordCraft is easy-to-use password generation application. Created with secur
 
 ## Requirements
 - Java 11 or newer
+
+## Download & Instalation
+From Relases section download .jar file related to the newest version of the programm
+
